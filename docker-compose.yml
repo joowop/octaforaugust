@@ -1,0 +1,19 @@
+version: '3'
+services:
+  sophia:
+    build: .
+    command: flask run
+    ports:
+      - 8080:8080
+    stdin_open: true
+    tty: true
+    environment:
+      - MYSQL_USER=sophia
+      - MYSQL_PASSWORD=sophia
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Seoul
+
+    volumes:
+      - ./:/app
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
