@@ -1,7 +1,7 @@
 # 실행 방법
-## 가상환경 설치
-1. `python -m venv <virtual_env_name>`
-
+## 가상환경
+- DOCKER 설치
+- 커멘드창 `docker-compose up -d` 실행
 
 # 기능목록
 - 도서관 내부의 장서 목록 가져오기
