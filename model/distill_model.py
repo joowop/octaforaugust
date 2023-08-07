@@ -25,5 +25,5 @@ print(pred)
 from roboflow import Roboflow
 
 rf = Roboflow(api_key="API_KEY")
-project = rf.workspace().project("PROJECT_ID")
+project = rf.workspace("sophia").project("sophia")
 project.version(DATASET_VERSION).deploy(model_type="yolov8", model_path=f"./runs/detect/train/")
