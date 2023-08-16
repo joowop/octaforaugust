@@ -5,7 +5,14 @@ const cheerio = require("cheerio")
 const puppeteer = require("puppeteer")
 const fs = require('fs');
 const { json } = require("express");
+const { url } = require("inspector");
 
+
+//지연함수
+async function sleep(ms){
+    const wakeUpTime = Date.now() + ms;
+    while(Date.now() < wakeUpTime){}
+}
 
 // Paging_crawling를 통해서 모든 책 href 을 집어넣는다. 
 let book_urls = []
@@ -33,6 +40,7 @@ async function Paging_crawling(href){
     for(let i= 1; i < 11; i++){
         let url = $(`#tabRoot > div.view_type_list.switch_prod_wrap > ol:nth-child(1) > li:nth-child(${i}) > div.prod_area.horizontal > div.prod_info_box > a`).attr("href")
         book_urls.push(url)
+        
     }
     
     for(let i= 1; i < 11; i++){
@@ -93,51 +101,76 @@ async function detail_crawling(href){
     let book_pages = $('#scrollSpyProdInfo > div.product_detail_area.basic_info > div.tbl_row_wrap > table > tbody > tr:nth-child(3) > td').text()
     // book category - 큰 분류만
     let category = $("#scrollSpyProdInfo > div.product_detail_area.book_intro > div.intro_book > ul > li > a:nth-child(3)").text()
-  
+    let review_box = $('#ReviewList1 > div.tab_wrap.type_sm > div.tab_content > div > div.comment_list > div:nth-child(1)')
+    let review = $(review_box).find('.comment_text_box').text()
     book_detail["category"] = category
     book_detail["title"] = title
     book_detail["authers"] = authers
     book_detail["score"] = score
-    book_detail["review"] = kloba_reviews
+    book_detail["kloba_review"] = kloba_reviews
     book_detail["isbn"] = isbn
     book_detail["published_date"] = published_date
     book_detail["book_pages"] = book_pages
-
+    book_detail["review"] = review
     book_obj_arr.push(book_detail)
 
     await browser.close()
 }
 
 
-async function book_urls_get(first, last){
+async function get_books_url(first, last){
 
     let current_page = first
     let last_page = last
+ 
 
     while (current_page < last_page){
         try{
-        let page_url = `https://product.kyobobook.co.kr/bestseller/steady#?page=${current_page}&per=20&sort=sel&ymw=2023082&abstExisCode=001&saleCmdtClstCode=&dsplDvsnCode=001&dsplTrgtDvsnCode=002&saleCmdtDsplDvsnCode=`
-        setTimeout(async() => await Paging_crawling(page_url), 3000)
-        current_page += 1
-        
+            let page_url = `https://product.kyobobook.co.kr/bestseller/steady#?page=${current_page}&per=20&sort=sel&ymw=2023082&abstExisCode=001&saleCmdtClstCode=&dsplDvsnCode=001&dsplTrgtDvsnCode=002&saleCmdtDsplDvsnCode=`
+ 
+            await Paging_crawling(page_url)
+            await sleep(3000)
+            current_page +=1
         }catch(e){
             console.error(e)
         }
     }
+    
+}
 
+async function book_detail_list(first, last_page){
 
+    let time = Date.now()
+    
     for(let i=0; i <book_urls.length ; i++){
-       setTimeout(async() => await detail_crawling(book_urls[i]) , 3000)
+        
+        try{
+            await detail_crawling(book_urls[i])
+            await sleep(3000)
+        }catch(e){
+            console.error("book details error")
+        }
     }
 
-    const jsonData = JSON.stringify(book_obj_arr, null, 2)
+        const jsonData = JSON.stringify(book_obj_arr, null, 2)
 
-    fs.writeFileSync(`${first}_to_${last_page}_page_data.json`, jsonData)
+        fs.writeFileSync(`${first}_to_${last_page}_page_data.json`, jsonData)
 }
+
+
+
+
 // 첫번째 인자 시작페이지, 두번째 인자 마지막페이지 + 1
 
-book_urls_get(1, 4)
 
+async function main(first, last){
+
+    await get_books_url(first, last)
+
+    await book_detail_list(first, last)
+}
+
+main(1, 2)
 
 // book_urls 전체를 순회해서 detail_crawling 을 진행한다.
 
