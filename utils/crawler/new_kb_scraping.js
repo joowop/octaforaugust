@@ -42,20 +42,23 @@ async function Paging_crawling(href){
     //해당 페이지 내에 있는 모든 책 url 가져오기
     for(let i= 1; i < 11; i++){
         let url = $(`#tabRoot > div.view_type_list.switch_prod_wrap > ol:nth-child(1) > li:nth-child(${i}) > div.prod_area.horizontal > div.prod_info_box > a`).attr("href")
+        if(url){
         book_urls.push(url)
-        
+        }
     }
     
     for(let i= 1; i < 11; i++){
         let url = $(`#tabRoot > div.view_type_list.switch_prod_wrap > ol:nth-child(3) > li:nth-child(${i}) > div.prod_area.horizontal > div.prod_info_box > a`).attr("href")
-        book_urls.push(url)
+        if(url){
+            book_urls.push(url)
+        }
     }
 
     await browser.close()
 }
 
 async function detail_crawling(href){
-    try{
+
         const browser = await puppeteer.launch({
             headless: false,
         })
@@ -116,15 +119,8 @@ async function detail_crawling(href){
         book_detail["published_date"] = published_date
         book_detail["book_pages"] = book_pages
         book_detail["review"] = review
-        book_obj_arr.push(book_detail)}
-    catch(e){
-        console.log(e)
-        await sleep(3000)
-        
-    }finally{
-
+        book_obj_arr.push(book_detail)
         await browser.close()
-    }
 
 }
 
@@ -177,8 +173,9 @@ async function book_detail_list(first, last_page){
 async function main(first, last){
 
     await get_books_url(first, last)
-
+    if (book_urls.length >0){
     await book_detail_list(first, last)
+    }
 }
 
 main(1, 26)
