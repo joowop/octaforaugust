@@ -117,8 +117,9 @@ async function book_urls_get(first, last){
     while (current_page < last_page){
         try{
         let page_url = `https://product.kyobobook.co.kr/bestseller/steady#?page=${current_page}&per=20&sort=sel&ymw=2023082&abstExisCode=001&saleCmdtClstCode=&dsplDvsnCode=001&dsplTrgtDvsnCode=002&saleCmdtDsplDvsnCode=`
-        await Paging_crawling(page_url)
+        setTimeout(async() => await Paging_crawling(page_url), 3000)
         current_page += 1
+        
         }catch(e){
             console.error(e)
         }
@@ -126,16 +127,16 @@ async function book_urls_get(first, last){
 
 
     for(let i=0; i <book_urls.length ; i++){
-        await detail_crawling(book_urls[i])
+       setTimeout(async() => await detail_crawling(book_urls[i]) , 3000)
     }
 
     const jsonData = JSON.stringify(book_obj_arr, null, 2)
 
     fs.writeFileSync(`${first}_to_${last_page}_page_data.json`, jsonData)
 }
-// 첫번째 인자 시작페이지, 두번째 인자 마지막페이지
+// 첫번째 인자 시작페이지, 두번째 인자 마지막페이지 + 1
 
-book_urls_get(1, 2)
+book_urls_get(1, 4)
 
 
 // book_urls 전체를 순회해서 detail_crawling 을 진행한다.
