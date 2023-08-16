@@ -42,9 +42,7 @@ async function Paging_crawling(href){
         let url = $(`#homeTabAll > div.switch_prod_wrap.view_type_list > ol > li:nth-child(${i}) > div.prod_area.horizontal > div.prod_thumb_box.size_lg > a`).attr("href")
         if(url){
             book_urls.push(url)
-        }
-        
-        
+        }   
     }
 
     await browser.close()
@@ -99,11 +97,21 @@ async function detail_crawling(href){
     let isbn = $('#scrollSpyProdInfo > div.product_detail_area.basic_info > div.tbl_row_wrap > table > tbody > tr:nth-child(1) > td').text()
     let published_date = $('#scrollSpyProdInfo > div.product_detail_area.basic_info > div.tbl_row_wrap > table > tbody > tr:nth-child(2) > td').text()
     let book_pages = $('#scrollSpyProdInfo > div.product_detail_area.basic_info > div.tbl_row_wrap > table > tbody > tr:nth-child(3) > td').text()
-    // book category - 큰 분류만
-    let category = $("#scrollSpyProdInfo > div.product_detail_area.book_intro > div.intro_book > ul > li > a:nth-child(3)").text()
+    // book category 
+    let categories = $("#scrollSpyProdInfo > div.product_detail_area.book_intro > div.intro_book > ul > li.category_list_item")
+
+    let categories_list = {}
+    categories.children('a').each((i, el)=>{
+        if(!categories_list[$(el).text()]){
+            categories_list[$(el).text()] = 0
+        }
+    })
+
+
+    
     let review_box = $('#ReviewList1 > div.tab_wrap.type_sm > div.tab_content > div > div.comment_list > div:nth-child(1)')
     let review = $(review_box).find('.comment_text_box').text()
-    book_detail["category"] = category
+    book_detail["category"] = Object.keys(categories_list)
     book_detail["title"] = title
     book_detail["authers"] = authers
     book_detail["score"] = score
@@ -127,7 +135,7 @@ async function get_books_url(first, last){
 
     while (current_page < last_page){
         try{
-            let page_url = `https://product.kyobobook.co.kr/category/KOR/0701#?page=${current_page}&type=all&per=20&sort=new`
+            let page_url = `https://product.kyobobook.co.kr/category/KOR/010301#?page=${current_page}&type=all&per=20&sort=new`
             await Paging_crawling(page_url)
             await sleep(3000)
             current_page +=1
@@ -155,7 +163,7 @@ async function book_detail_list(first, last_page){
 
         const jsonData = JSON.stringify(book_obj_arr, null, 2)
 
-        fs.writeFileSync(`${first}_to_${last_page}_page_data.json`, jsonData)
+        fs.writeFileSync(`${first}_to_${last_page-1}_page_data.json`, jsonData)
 }
 
 
@@ -166,15 +174,15 @@ async function book_detail_list(first, last_page){
 
 async function main(first, last){
 
-    await get_books_url(first, last)
+    await get_books_url(first, last+1)
 
     if(book_urls.length > 0){
 
-        await book_detail_list(first, last)
+        await book_detail_list(first, last+1)
     }
 }
 
-main(1, 6)
+main(1, 2)
 
 // book_urls 전체를 순회해서 detail_crawling 을 진행한다.
 
