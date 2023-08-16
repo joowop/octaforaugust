@@ -25,6 +25,7 @@ async function Paging_crawling(href){
     })
 
     const page = await browser.newPage();
+    
     await page.setViewport({
         width: 1440,
         height: 1080
@@ -35,7 +36,9 @@ async function Paging_crawling(href){
         });
     const html = await page.content()
     const $ = cheerio.load(html)
-
+    
+    await sleep(5000)
+    
     //해당 페이지 내에 있는 모든 책 url 가져오기
     for(let i= 1; i < 11; i++){
         let url = $(`#tabRoot > div.view_type_list.switch_prod_wrap > ol:nth-child(1) > li:nth-child(${i}) > div.prod_area.horizontal > div.prod_info_box > a`).attr("href")
@@ -58,11 +61,11 @@ async function detail_crawling(href){
         })
 
         const page = await browser.newPage();
+
         await page.setViewport({
             width: 1440,
             height: 1080
         })
-
         await page.goto(href, {
             waitUntil: 'load'
 
@@ -116,10 +119,13 @@ async function detail_crawling(href){
         book_obj_arr.push(book_detail)}
     catch(e){
         console.log(e)
-        sleep(3000)
+        await sleep(3000)
+        
+    }finally{
+
+        await browser.close()
     }
 
-    await browser.close()
 }
 
 
@@ -131,13 +137,13 @@ async function get_books_url(first, last){
 
     while (current_page < last_page){
         try{
-            let page_url = `https://product.kyobobook.co.kr/bestseller/steady#?page=${current_page}&per=20&sort=sel&ymw=2023082&abstExisCode=001&saleCmdtClstCode=&dsplDvsnCode=001&dsplTrgtDvsnCode=002&saleCmdtDsplDvsnCode=`
- 
+            let page_url = `https://product.kyobobook.co.kr/category/KOR/0701#?page=${current_page}&type=all&per=20&sort=new`
             await Paging_crawling(page_url)
             await sleep(3000)
             current_page +=1
         }catch(e){
             console.error(e)
+            await sleep(3000)
         }
     }
     
@@ -175,7 +181,7 @@ async function main(first, last){
     await book_detail_list(first, last)
 }
 
-main(11, 21)
+main(1, 26)
 
 // book_urls 전체를 순회해서 detail_crawling 을 진행한다.
 
