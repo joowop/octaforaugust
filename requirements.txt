@@ -1,11 +1,10 @@
 flask
 wheel
 pillow
-torch
-torchvision
-torchaudio
 mysqlclient
-autodistill
-autodistill-grounded-sam
-autodistill-yolov8
 supervision==0.9.0
+PyYAML
+ultralytics
+PyMuPDF==1.21.1
+paddleocr>=2.0.1
+opencv-python
