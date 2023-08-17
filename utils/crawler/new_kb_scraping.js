@@ -12,11 +12,11 @@ async function sleep(ms){
     while(Date.now() < wakeUpTime){}
 }
 
-// Paging_crawling를 통해서 모든 책 href 을 집어넣는다. 
-let book_urls = []
-let book_obj_arr = []
 
-async function Paging_crawling(href){
+
+async function Paging_crawling(href, time){
+
+    let book_url_by_page = []
 
     const browser = await puppeteer.launch({
         headless: false,
@@ -24,32 +24,42 @@ async function Paging_crawling(href){
 
     const page = await browser.newPage();
     
+
     await page.setViewport({
         width: 1440,
         height: 1080
     })
-    await page.goto(href,
-        {
-            waitUntil: "load"
-        });
+   
+    await page.goto(href,{
+        waitUntil: 'load'
+    })
+    
+    await sleep(time)
+
     const html = await page.content()
     const $ = cheerio.load(html)
-    
-    await sleep(3000)
+
     
     //해당 페이지 내에 있는 모든 책 url 가져오기
     for(let i= 1; i < 21; i++){
-        let url = $(`#homeTabAll > div.switch_prod_wrap.view_type_list > ol > li:nth-child(${i}) > div.prod_area.horizontal > div.prod_thumb_box.size_lg > a`).attr("href")
-        if(url){
-            book_urls.push(url)
-        }   
+        let url_a_tag = $(`#homeTabAll > div.switch_prod_wrap.view_type_list > ol > li:nth-child(${i}) > div.prod_area > div.prod_info_box > a`)
+        let url_text = $(url_a_tag).attr("href")
+        
+        if(url_text){
+            book_url_by_page.push(url_text)
+        }
     }
-
+    
     await browser.close()
+
+    return book_url_by_page
 }
 
 async function detail_crawling(href){
-    
+
+
+    const book_detail = {}
+
     const browser = await puppeteer.launch({
         headless: false,
     })
@@ -60,14 +70,14 @@ async function detail_crawling(href){
         width: 1440,
         height: 1080
     })
+    
     await page.goto(href, {
         waitUntil: 'load'
 
     });
+
     const html = await page.content()
     const $ = cheerio.load(html)
-
-    let book_detail = {}
     
     //저자
     let authers =[]
@@ -107,8 +117,6 @@ async function detail_crawling(href){
         }
     })
 
-
-    
     let review_box = $('#ReviewList1 > div.tab_wrap.type_sm > div.tab_content > div > div.comment_list > div:nth-child(1)')
     let review = $(review_box).find('.comment_text_box').text()
     book_detail["category"] = Object.keys(categories_list)
@@ -117,26 +125,26 @@ async function detail_crawling(href){
     book_detail["score"] = score
     book_detail["kloba_review"] = kloba_reviews
     book_detail["isbn"] = isbn
-    book_detail["published_date"] = published_date
+    book_detail["published_date"] = published_date.trim()
     book_detail["book_pages"] = book_pages
     book_detail["review"] = review
-    book_obj_arr.push(book_detail)
 
     browser.close()
-
+    return book_detail
 }
 
 
-async function get_books_url(first, last){
+async function get_all_page_books_url(first, last, sleep_time){
 
     let current_page = first
     let last_page = last
- 
+    let book_url_list_from_all_pages = []
 
     while (current_page < last_page){
         try{
-            let page_url = `https://product.kyobobook.co.kr/category/KOR/010301#?page=${current_page}&type=all&per=20&sort=new`
-            await Paging_crawling(page_url)
+            let page_url = `https://product.kyobobook.co.kr/category/KOR/010303#?page=${current_page}&type=all&per=20&sort=new`
+            let book_urls_by_page = await Paging_crawling(page_url, sleep_time)
+            book_url_list_from_all_pages.push(...book_urls_by_page)
             await sleep(3000)
             current_page +=1
         }catch(e){
@@ -144,17 +152,20 @@ async function get_books_url(first, last){
             await sleep(3000)
         }
     }
+
+    return book_url_list_from_all_pages
     
 }
 
-async function book_detail_list(first, last_page){
+async function book_detail_list(first, last_page, book_urls, main_genre){
 
-    let time = Date.now()
+    let book_obj_arr = []
     
     for(let i=0; i <book_urls.length ; i++){
         
         try{
-            await detail_crawling(book_urls[i])
+            let book = await detail_crawling(book_urls[i])
+            book_obj_arr.push(book)
             await sleep(3000)
         }catch(e){
             console.error(e, Date.now(), "book details_crawling error")
@@ -163,29 +174,24 @@ async function book_detail_list(first, last_page){
 
         const jsonData = JSON.stringify(book_obj_arr, null, 2)
 
-        fs.writeFileSync(`${first}_to_${last_page-1}_page_data.json`, jsonData)
+        fs.writeFileSync(`${main_genre}_${first}_to_${last_page-1}_page_data.json`, jsonData)
 }
 
 
 
 
-// 첫번째 인자 시작페이지, 두번째 인자 마지막페이지 + 1
+// 첫번째 인자 시작페이지, 두번째 인자 마지막페이지 
 
 
-async function main(first, last){
+async function main(first, last, sleep_time, main_genre){
 
-    await get_books_url(first, last+1)
+    const book_url_list_from_all_pages = await get_all_page_books_url(first, last+1, sleep_time)
 
-    if(book_urls.length > 0){
+    if(book_url_list_from_all_pages.length > 0){
 
-        await book_detail_list(first, last+1)
+        await book_detail_list(first, last+1, book_url_list_from_all_pages, main_genre)
     }
 }
 
-main(1, 2)
-
-// book_urls 전체를 순회해서 detail_crawling 을 진행한다.
-
-
-    // 통계 https://product.kyobobook.co.kr/api/review/statistics?saleCmdtid=S000200746091
-    // 연관 책 구하기
+//시작페이지 // 끝페이지 // 페이지 로딩 시간 지연 // 파일 이름(장르)('/' 슬래시 안들어가게하기 )
+main(1, 1, 3000, "고전소설문학선");
