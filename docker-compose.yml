@@ -17,3 +17,6 @@ services:
       - ./:/app
       - ./db/mysql/data:/var/lib/mysql
       - ./db/mysql/init:/docker-entrypoint-initdb.d
+
+  library_db:
+    image: mysql
