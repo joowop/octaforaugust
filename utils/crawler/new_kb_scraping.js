@@ -194,8 +194,10 @@ async function main(first, last, sleep_time, main_genre, category_number){
 }
 
 //시작페이지 // 끝페이지 // 페이지 로딩 시간 지연 // 파일 이름(장르)('/' 슬래시 안들어가게하기 ) // 소분류 카테고리 주소번호(문자열)
-main(1, 19, 5000, "공포호러소설", '010104');
+main(1, 19, 5000, "공포호러소설", '010103');
 
 
 //https://product.kyobobook.co.kr/category/KOR/010105#?page=1&type=all&sort=new
 //                                             ^^^^^^ 이부분 이 소분류 카테고리 주소번호
+
+// 실행 node --max-old-space-size=4096 .\new_kb_scraping.js                      
