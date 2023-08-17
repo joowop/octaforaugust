@@ -134,7 +134,7 @@ async function detail_crawling(href){
 }
 
 
-async function get_all_page_books_url(first, last, sleep_time){
+async function get_all_page_books_url(first, last, sleep_time, category_number){
 
     let current_page = first
     let last_page = last
@@ -142,7 +142,7 @@ async function get_all_page_books_url(first, last, sleep_time){
 
     while (current_page < last_page){
         try{
-            let page_url = `https://product.kyobobook.co.kr/category/KOR/010303#?page=${current_page}&type=all&per=20&sort=new`
+            let page_url = `https://product.kyobobook.co.kr/category/KOR/${category_number}#?page=${current_page}&type=all&per=20&sort=new`
             let book_urls_by_page = await Paging_crawling(page_url, sleep_time)
             book_url_list_from_all_pages.push(...book_urls_by_page)
             await sleep(3000)
@@ -183,9 +183,9 @@ async function book_detail_list(first, last_page, book_urls, main_genre){
 // 첫번째 인자 시작페이지, 두번째 인자 마지막페이지 
 
 
-async function main(first, last, sleep_time, main_genre){
+async function main(first, last, sleep_time, main_genre, category_number){
 
-    const book_url_list_from_all_pages = await get_all_page_books_url(first, last+1, sleep_time)
+    const book_url_list_from_all_pages = await get_all_page_books_url(first, last+1, sleep_time, category_number)
 
     if(book_url_list_from_all_pages.length > 0){
 
@@ -193,5 +193,9 @@ async function main(first, last, sleep_time, main_genre){
     }
 }
 
-//시작페이지 // 끝페이지 // 페이지 로딩 시간 지연 // 파일 이름(장르)('/' 슬래시 안들어가게하기 )
-main(1, 1, 3000, "고전소설문학선");
+//시작페이지 // 끝페이지 // 페이지 로딩 시간 지연 // 파일 이름(장르)('/' 슬래시 안들어가게하기 ) // 소분류 카테고리 주소번호(문자열)
+main(1, 19, 5000, "공포호러소설", '010104');
+
+
+//https://product.kyobobook.co.kr/category/KOR/010105#?page=1&type=all&sort=new
+//                                             ^^^^^^ 이부분 이 소분류 카테고리 주소번호
