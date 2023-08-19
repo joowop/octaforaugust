@@ -1,5 +1,5 @@
 import os
-from ..utils.find_books.image_predict import ImagePredict
+from ..utils.image_prediction.image_predict import ImagePredict
 import datetime as dt
 
 received_file_dir = r"../../tmp/received"
