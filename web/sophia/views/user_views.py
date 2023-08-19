@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request, url_for
 from werkzeug.utils import redirect
+from ..apis.sophia_for_user import SophiaForUser
 
 # from sophia.models import
 # from sophia.forms import
@@ -21,10 +22,8 @@ def find_book():
 
 
 # 책 추천받기
-@bp.route('/recommend_book', methods=['GET','POST'])
+@bp.route('/recommend_book', methods=['GET'])
 def recommend_book():
-    print(request.get_data(book))
-    book=request.params
-    if request.method == 'POST':
-        return "추천 리스트"
+    with SophiaForUser(request=request).recommend_book() as book_list:
+        return book_list
 
