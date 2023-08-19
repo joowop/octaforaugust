@@ -16,8 +16,9 @@ def missing():
 # 뒤집어진 책 찾기
 @bp.route('/reversed_book', methods=['POST'])
 def reversed():
-     # Libarian(request=request).reversed_book_location()  여기서 이미지 주소 불러올 수 있습니다~~~!
-
+     # path : Libarian(request=request).reversed_book_location()["filpath"]  여기서 이미지 주소 불러올 수 있습니다~~~!
+     # reversed_book_list : Libarian(request=request).reversed_book_location()["reversed_books"]
+     pass
 # 잘못 꽂힌 책 찾기
 @bp.route('/wrong_placed_book', methods=['GET','POST'])
 def wrong():

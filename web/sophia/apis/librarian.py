@@ -19,11 +19,13 @@ class Libarian:
 
     def reversed_book_location(self) -> str:
         file_location = self.get_received_image_path()
-        print(file_location, type(file_location))
         predictor = ImagePredict(file_location)
         predicted_file_location = predictor.reversed_book_location()
-        print(predicted_file_location)
-        return predicted_file_location
+        reversed_book_list = predictor.ocr_list()
+        return {"filepath": predicted_file_location, "book_list": reversed_book_list["reversed_books"]}
+    
+    def reversed_book_list(self):
+    
     
     def get_wrong_placed_book(self):
         pass
