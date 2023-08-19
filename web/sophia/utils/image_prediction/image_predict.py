@@ -55,8 +55,8 @@ class ImagePredict:
                 results = self.reader.readtext(crop_img, detail = 0)
                 
                 wordlist.append(''.join(results))
-        word_dic['valid_books: '] = wordlist
-        word_dic["reversed_books: "] = reversed_wordlist
+        word_dic['valid_books'] = wordlist
+        word_dic["reversed_books"] = reversed_wordlist
 
         return word_dic
 
