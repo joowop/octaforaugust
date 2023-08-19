@@ -42,8 +42,6 @@ class Libarian:
         predictor = self.image_prediction
         book_list = predictor.ocr_list()
         self.result["reverse_book_list"] = book_list["reversed_books"]
-        
-    
     
     def get_wrong_placed_book(self):
         pass
