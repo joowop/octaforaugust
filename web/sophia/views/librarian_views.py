@@ -34,7 +34,7 @@ def reversed():
     
     
 # 잘못 꽂힌 책 찾기
-@bp.route('/wrong_placed_book', methods=['GET','POST'])
+@bp.route('/wrong_placed_book', methods=['POST'])
 def wrong():
-
-    return "이 책들은 잘못 꽂혔습니다.2"
+    with Libarian(request, "unsorted") as lib:
+        return lib
