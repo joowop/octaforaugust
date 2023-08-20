@@ -4,7 +4,7 @@ Pillow==9.5.0
 mysqlclient
 supervision==0.9.0
 ultralytics
-paddlepaddle
+paddlepaddle-gpu
 paddleocr>=2.0.1
 opencv-python
 easyocr
