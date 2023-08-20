@@ -14,7 +14,7 @@ def missing():
             return "분실된 책이 없습니다."
     return lib
 ## 결과값
-#  self.result["bookshelf"]  입력한 사진
+#  self.result["bookshelf"]  입력한 사진값 추측결과_l
 #  self.result["detected_book_list"] book_list ocr 로 받은 목록
 #  self.result["missing_books"] 기존 db와 대조 결과
 # 뒤집어진 책 찾기
@@ -38,3 +38,4 @@ def reversed():
 def wrong():
     with Libarian(request, "unsorted") as lib:
         return lib
+    # {"u “unsorted_image” : <str: dir Image.jpg>}
