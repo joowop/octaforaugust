@@ -8,17 +8,13 @@ from ..apis.sophia_for_user import SophiaForUser
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 # 도서 위치 찾기
-# @bp.route('/find_book', methods=['GET'])
-# def find_book():
-#     book = request.args.get('book')
-#     # value 값을 book으로 받기
-#     response_data = {
-#         'message' : 'GET request received',
-#         'book' : book
-#     }
-#     # 데이터 베이스 검색
-
-#     return render_template('user/user_find.html')
+@bp.route('/find_book', methods=['GET'])
+def find_book():
+    book = request.args.get('book')
+    with SophiaForUser(request=request, option="find_book") as bookshelf:
+        if bookshelf == -1:
+            return "해당 책이 존재하는 책장이 없습니다."
+        return bookshelf
 
 
 # 책 추천받기
