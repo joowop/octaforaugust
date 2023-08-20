@@ -28,7 +28,7 @@ class SophiaForUser:
     def __enter__(self):
         if self.option == "recommend":
             books = self.recommend_book()
-            self.result["booklist"] = books
+            self.result["booklist"] = books.split("\n")
             return self.result
         elif self.option == "find_book":
             self.book_finder()
@@ -41,7 +41,7 @@ class SophiaForUser:
         book_name = self.booktext
         book_data = self.book_data.loc[self.book_data["제목"] == book_name, "책장위치"]
         bookshelf_number = book_data.iloc[0]
-        bookshelf_source = 'model/bookshelves/{}.jpg'.format(bookshelf_number)
+        bookshelf_source = '{}.jpg'.format(bookshelf_number)
         if book_data.empty:
             self.result["bookshelf"] = -1
         self.result["bookshelf"] = bookshelf_source
