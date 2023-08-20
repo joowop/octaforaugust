@@ -21,4 +21,5 @@ def find_book():
 @bp.route('/recommend_book', methods=['GET'])
 def recommend_book():
     with SophiaForUser(request=request, option="recommend") as book_list:
-        return book_list
+        print(book_list)
+        return render_template('/user/user_rec.html', book_list = book_list)

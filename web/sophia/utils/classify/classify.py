@@ -101,7 +101,17 @@ class Classify:
                 
         # book_valid_list
 
-        book_sorted_list = sorted(book_valid_list)
+        new_dict = []
+        for i in book_valid_list:
+            vid = re.compile('\d*')
+            cmd = vid.search(i[0])
+            foward, back = cmd.span()
+            numbers = i[0][foward:back]
+            sentence = i[0][back:]
+            new_dict.append((numbers,sentence,i[1]))
+
+
+        book_sorted_list = sorted(new_dict, key=lambda x: (x[0], x[1]))
         # book_sorted_list
 
 
@@ -145,18 +155,18 @@ class Classify:
 
         try: 
             for cnt, i in enumerate(book_sorted_list,1): ##같은 서가 위치 다른책 위치변경(파란색)
-                original_image = cv2.rectangle(original_image, (int(book_label_boxes[i[1]][0]),int(book_label_boxes[i[1]][1])), (int(book_label_boxes[i[1]][2]), int(book_label_boxes[i[1]][3])), (255,0,0), 3)
-                original_image = cv2.putText(original_image, "num"+str(cnt), (int(book_label_boxes[i[1]][0]),int(book_label_boxes[i[1]][1])), cv2.FONT_HERSHEY_COMPLEX,1 , (255,0,0), 2)
+                original_image = cv2.rectangle(original_image, (int(book_label_boxes[i[2]][0]),int(book_label_boxes[i[2]][1])), (int(book_label_boxes[i[2]][2]), int(book_label_boxes[i[2]][3])), (255,0,0), 3)
+                original_image = cv2.putText(original_image, "num"+str(cnt), (int(book_label_boxes[i[2]][0]),int(book_label_boxes[i[2]][1])), cv2.FONT_HERSHEY_COMPLEX,1 , (255,0,0), 2)
         except :
             pass
 
         try:
             for j in book_diff_list: ##다른 서가에 위치한 책 알려줌(초록색)
-                original_image = cv2.rectangle(original_image, (int(book_label_boxes[j[1]][0]),int(book_label_boxes[j[1]][1])), (int(book_label_boxes[j[1]][2]), int(book_label_boxes[j[1]][3])), (0,255,0), 3)
+                original_image = cv2.rectangle(original_image, (int(book_label_boxes[j[2]][0]),int(book_label_boxes[j[2]][1])), (int(book_label_boxes[j[2]][2]), int(book_label_boxes[j[2]][3])), (0,255,0), 3)
                 if int(i[0][:3])//100*100 ==0 :
-                    original_image = cv2.putText(original_image, "move to 000th shelves", (int(book_label_boxes[j[1]][0]),int(book_label_boxes[j[1]][1])), cv2.FONT_HERSHEY_COMPLEX,1 , (0,255,0), 2)
+                    original_image = cv2.putText(original_image, "move to 000th shelves", (int(book_label_boxes[j[2]][0]),int(book_label_boxes[j[2]][1])), cv2.FONT_HERSHEY_COMPLEX,1 , (0,255,0), 2)
                 else:
-                    original_image = cv2.putText(original_image, "move to"+str(int(j[0][:3])//100*100)+"th shelves", (int(book_label_boxes[j[1]][0]),int(book_label_boxes[j[1]][1])), cv2.FONT_HERSHEY_COMPLEX,1 , (0,255,0), 2)
+                    original_image = cv2.putText(original_image, "move to"+str(int(j[0][:3])//100*100)+"th shelves", (int(book_label_boxes[j[2]][0]),int(book_label_boxes[j[2]][1])), cv2.FONT_HERSHEY_COMPLEX,1 , (0,255,0), 2)
         except:
             pass
 
