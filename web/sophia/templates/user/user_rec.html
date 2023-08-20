@@ -1,6 +1,8 @@
 <DOCTYPE>
     <html>
         <body>
-            {body_list}
+            {% for book in book_list %}
+                <p> {{ book }} </p>
+             {% endfor%}
         </body>    
     </html>

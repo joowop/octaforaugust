@@ -1,5 +1,21 @@
-<form method="GET" action="/user/recommend_book">
-  <label for="book">책추천</label>
-  <input type="text" id="book" value="book" name="book">
-  <button type="submit">제출 </button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <form method="GET" action="/user/recommend_book">
+    <label for="book">책 추천</label>
+    <input type="text" id="book" name="book">
+    <button type="submit">제출 </button>
+  </form>
+
+  <form method="GET" action="/user/find_book">
+    <label for="book">책 찾기</label>
+    <input type="text" id="book" name="book">
+    <button type="submit">제출 </button>
+  </form>
+</body>
+</html>
