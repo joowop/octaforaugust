@@ -7,12 +7,16 @@ from ..apis.librarian import Libarian
 bp = Blueprint('librarian', __name__, url_prefix='/librarian')
 
 # 분실 책 찾기
-@bp.route('/missing_book', methods=['GET'])
+@bp.route('/missing_book', methods=['POST'])
 def missing():
-    # DB 연결
-
-    return "이러한 책들이 분실되었습니다."
-
+    with Libarian(request, "missing") as lib:
+        if lib["missing_books"] == -1:
+            return "분실된 책이 없습니다."
+    return lib
+## 결과값
+#  self.result["bookshelf"]  입력한 사진
+#  self.result["detected_book_list"] book_list ocr 로 받은 목록
+#  self.result["missing_books"] 기존 db와 대조 결과
 # 뒤집어진 책 찾기
 @bp.route('/reversed_book', methods=['POST'])
 def reversed():
