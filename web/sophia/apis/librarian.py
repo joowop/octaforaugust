@@ -9,8 +9,10 @@ class Libarian:
     def __init__(self, request, option):
         self.option = option
         self.image = request.files["image"]
+        self.bookshelf_number = request.form["bookshelf_number"]
+        print(self.bookshelf_number)
         self.image_location = self.get_received_image_path()
-        self.image_prediction = ImagePredict(self.image_location)
+        self.image_prediction = ImagePredict(self.image_location, )
         self.result = {}
         
     def get_received_image_path(self)->str:
@@ -29,6 +31,8 @@ class Libarian:
         if self.option == "reversed":
             self.reversed_book_location()
             self.reversed_book_list()
+        elif self.option == "missing":
+            self.get_missing_book()
         else:
             self.get_wrong_placed_book()
         return self.result
@@ -43,5 +47,9 @@ class Libarian:
         book_list = predictor.ocr_list()
         self.result["reverse_book_list"] = book_list["reversed_books"]
     
-    def get_wrong_placed_book(self):
-        pass
+    def get_missing_book(self):
+        predictor = self.image_prediction
+        self.result["bookshelf"] = predictor.show_predict()
+        book_list = predictor.ocr_book_list()
+        self.result["detected_book_list"] = book_list
+        self.result["missing_books"] = predictor.find_missing_list(book_list=book_list)
