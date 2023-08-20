@@ -1,6 +1,10 @@
 from flask import Blueprint, render_template, request, url_for, send_file
 from werkzeug.utils import redirect
 from ..apis.librarian import Libarian
+import io
+import base64
+from PIL import Image
+
 # from sophia.models import
 # from sophia.forms import
 
@@ -21,7 +25,15 @@ def missing():
 @bp.route('/reversed_book', methods=['POST'])
 def reversed():
     with Libarian(request, "reversed") as lib:
-        return lib 
+        # src = lib["reversed_book"]
+        # img = Image.open(src, mode="r")
+        # img_byte_arr = io.BytesIO()
+        # img.save(img_byte_arr, format='PNG')
+        # encoded_img = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
+        # result = { "reverse_book": encoded_img, 
+        #           "reverse_book_list": lib["reverse_book_list"]}
+        return lib
+        
     # lib = {
     # "reverse_book": "./tmp/predicted/reversed_20230820004657.jpg",
     # "reverse_book_list": [
