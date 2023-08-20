@@ -1,5 +1,6 @@
 import os
 from ..utils.image_prediction.image_predict import ImagePredict
+from ..utils.classify.classify import Classify
 import datetime as dt
 received_file_dir = r"tmp/received"
 
@@ -10,9 +11,9 @@ class Libarian:
         self.option = option
         self.image = request.files["image"]
         self.bookshelf_number = request.form["bookshelf_number"]
-        print(self.bookshelf_number)
         self.image_location = self.get_received_image_path()
-        self.image_prediction = ImagePredict(self.image_location, )
+        self.image_prediction = ImagePredict(self.image_location)
+        self.classifier = Classify
         self.result = {}
         
     def get_received_image_path(self)->str:
@@ -33,7 +34,7 @@ class Libarian:
             self.reversed_book_list()
         elif self.option == "missing":
             self.get_missing_book()
-        else:
+        elif self.option == "unsorted":
             self.get_wrong_placed_book()
         return self.result
 
@@ -53,3 +54,8 @@ class Libarian:
         book_list = predictor.ocr_book_list()
         self.result["detected_book_list"] = book_list
         self.result["missing_books"] = predictor.find_missing_list(book_list=book_list)
+        
+    def get_wrong_placed_book(self):
+        classifier = self.classifier(self.image_location)
+        result = classifier.get_unsorted_book()
+        self.result["unsorted_image"] = result
