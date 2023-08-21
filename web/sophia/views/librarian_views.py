@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, send_file, jsonify
+from flask import Blueprint, render_template, request, url_for, send_file, jsonify, send_from_directory
 from werkzeug.utils import redirect
 from ..apis.librarian import Libarian
 import io
@@ -32,7 +32,8 @@ def reversed():
         # encoded_img = base64.encodebytes(img_byte_arr.getvalue()).decode('ascii')
         # result = { "reverse_book": encoded_img, 
         #           "reverse_book_list": lib["reverse_book_list"]}
-        return lib
+        # return lib
+        return send_from_directory('tmp/predicted',lib["reversed_book"])
         
     # lib = {
     # "reverse_book": "./tmp/predicted/reversed_20230820004657.jpg",
@@ -49,5 +50,5 @@ def reversed():
 @bp.route('/wrong_placed_book', methods=['POST'])
 def wrong():
     with Libarian(request, "unsorted") as lib:
-        return lib
+        return send_from_directory('tmp/predicted',lib["unsorted_image"])
     # {"u “unsorted_image” : <str: dir Image.jpg>}

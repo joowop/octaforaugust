@@ -9,8 +9,8 @@ from collections import Counter
 import torch
 import datetime as dt
 
-model_path = "model_ai/book_detection/book_detection.pt"
-PATH = './tmp/cropped_images/'
+model_path = "D:/octaforaugust/web/sophia/model_ai/book_detection/book_detection.pt"
+PATH = 'D:/octaforaugust/web/sophia/tmp/cropped_images/'
 img_paths = glob.glob(PATH+'*.jpg')
 img_paths.sort()
 
@@ -19,7 +19,7 @@ class Classify:
         self.ocr = PaddleOCR(lang='korean', cla=False)
         self.result = {}
         self.model = YOLO(model_path)
-        self.predict_result = self.model.predict(imagepath, save=False, conf=0.4, save_crop=True)
+        self.predict_result = self.model.predict(imagepath, save=False, conf=0.05, save_crop=True)
         self.imagepath = imagepath
     
     def get_unsorted_book(self):
@@ -54,7 +54,7 @@ class Classify:
             cropped_image = original_image[y1:y2, x1:x2]
 
             # Save the cropped image
-            save_path = f'./tmp/cropped_images/cropped_{i}.jpg'
+            save_path = f'D:/octaforaugust/web/sophia/tmp/cropped_images/cropped_{i}.jpg'
             cv2.imwrite(save_path, cropped_image)
 
             print(f"Cropped image saved at: {save_path}")
@@ -180,6 +180,12 @@ class Classify:
 
         original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
         original_image = Image.fromarray(original_image)
-        original_image_path = './tmp/predicted/classified_book_{}.jpg'.format(dt.datetime.now().strftime(("%Y%m%d%H%M%S")))
+        original_image_path = 'D:/octaforaugust/web/sophia/tmp/predicted/'
+        precise = "classified_book_{}.jpg".format(dt.datetime.now().strftime(("%Y%m%d%H%M%S")))
+        original_image_path = "".join([original_image_path, precise])
         original_image.save(original_image_path, "JPEG")
-        return original_image_path
+        # print(a)
+        # print(b)
+        # print(book_sorted_list)
+
+        return precise

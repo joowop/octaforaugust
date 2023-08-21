@@ -2,7 +2,7 @@ import os
 from ..utils.image_prediction.image_predict import ImagePredict
 from ..utils.classify.classify import Classify
 import datetime as dt
-received_file_dir = r"tmp/received"
+received_file_dir = r"D:/octaforaugust/web/sophia/tmp/received"
 
 
 

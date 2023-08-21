@@ -1,0 +1,10 @@
+<DOCTYPE>
+    <html>
+        <body>
+            {% for book in book_list %}
+                <p> {{ book }} </p>
+            {% endfor%}
+            {% set image_filenmae = img_src %}
+            <img src="{{ url_for('tmp', filname=image_filenmae )}}" alt="Image">
+        </body>    
+    </html>

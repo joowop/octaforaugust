@@ -1,11 +1,11 @@
 from flask import Flask
-import config
+# import config
 
 # sql session 들어가야함
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(config)
+    # app.config.from_object(config)
 
     # from . import models
     from .views import main_views, user_views, librarian_views
