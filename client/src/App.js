@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Navigation } from './components/index'
+import Main from './pages/Main/Main';
+import { Librarian } from './pages/Librarian';
+import { LibraryUser } from './pages/LibraryUser';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>    
+    <Router>
+      <header>
+        <Navigation />
       </header>
-    </div>
+      <body>
+        <Routes>
+          {/* 각 경로에 해당하는 컴포넌트를 라우트로서 렌더링 */}
+          <Route index element={<Main/>} />
+          <Route path="/librarian" element={<Librarian/>} />
+          <Route path="/libraryUser" element={<LibraryUser/>} />
+        </Routes>
+      </body>
+    </Router>
+    </>
+
   );
 }
 
