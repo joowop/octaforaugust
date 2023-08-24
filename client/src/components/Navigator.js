@@ -1,8 +1,7 @@
 import React from "react";
 import { Dropdown, Navbar } from 'flowbite-react';
-import { RouteList } from '../components'
-import { ROUTE_PATH_LIST } from "../Constant";
-import { Link } from "react-router-dom";
+import {RouteList} from '../components'
+import {ROUTE_PATH_LIST} from "../Constant";
 
 
 function Navigation(){
@@ -17,27 +16,19 @@ function Navigation(){
             <Navbar.Toggle/>
             <Navbar.Collapse>
                 <Dropdown inline label={<div>사서 이용자</div>}>
-                    <Navbar.Link>
-                        <Link to={ROUTE_PATH_LIST.LibrarianCheckCollection.path}>
+                    <Navbar.Link href={ROUTE_PATH_LIST.LibrarianCheckCollection.path}>
                         장서 점검
-                        </Link>
                     </Navbar.Link>
-                    <Navbar.Link>
-                        <Link to={ROUTE_PATH_LIST.LibrarianOrganization.path}>
-                            장서 정리
-                        </Link>
+                    <Navbar.Link href={ROUTE_PATH_LIST.LibrarianOrganization.path}>
+                        장서 정리
                     </Navbar.Link>
                 </Dropdown>
                 <Dropdown inline label={<div>도서관 이용자</div>}>
-                    <Navbar.Link>
-                        <Link to={ROUTE_PATH_LIST.FindBook.path}>
+                    <Navbar.Link href={ROUTE_PATH_LIST.FindBook.path}>
                         도서 찾기
-                        </Link>
                     </Navbar.Link>
-                    <Navbar.Link>
-                        <Link to={ROUTE_PATH_LIST.RecommendBook.path}>
+                    <Navbar.Link href={ROUTE_PATH_LIST.RecommendBook.path}>
                         도서 추천
-                        </Link>
                     </Navbar.Link> 
                 </Dropdown>
             </Navbar.Collapse>
