@@ -1,23 +1,50 @@
 import React from "react";
+import { Dropdown, Navbar } from 'flowbite-react';
+import { RouteList } from '../components'
+import { ROUTE_PATH_LIST } from "../Constant";
 import { Link } from "react-router-dom";
 
 
 function Navigation(){
     return (
+        <>
+        <Navbar fluid rounded>
+            <Navbar.Brand href="/">
+                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                    Sophia
+                </span>
+            </Navbar.Brand>
+            <Navbar.Toggle/>
+            <Navbar.Collapse>
+                <Dropdown inline label={<div>사서 이용자</div>}>
+                    <Navbar.Link>
+                        <Link to={ROUTE_PATH_LIST.LibrarianCheckCollection.path}>
+                        장서 점검
+                        </Link>
+                    </Navbar.Link>
+                    <Navbar.Link>
+                        <Link to={ROUTE_PATH_LIST.LibrarianOrganization.path}>
+                            장서 정리
+                        </Link>
+                    </Navbar.Link>
+                </Dropdown>
+                <Dropdown inline label={<div>도서관 이용자</div>}>
+                    <Navbar.Link>
+                        <Link to={ROUTE_PATH_LIST.FindBook.path}>
+                        도서 찾기
+                        </Link>
+                    </Navbar.Link>
+                    <Navbar.Link>
+                        <Link to={ROUTE_PATH_LIST.RecommendBook.path}>
+                        도서 추천
+                        </Link>
+                    </Navbar.Link> 
+                </Dropdown>
+            </Navbar.Collapse>
+        </Navbar>
+        < RouteList />
+        </>
 
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/"> Sophia </Link>
-                </li>
-                <li>
-                    <Link to="/librarian"> 사서 메뉴</Link>
-                </li>
-                <li>
-                    <Link to="/libraryUser"> 이용자 메뉴</Link>
-                </li>
-            </ul>
-        </nav>
     )
 }
 

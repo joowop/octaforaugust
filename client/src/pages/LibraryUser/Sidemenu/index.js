@@ -1,2 +1,2 @@
-export { default as FindBooks } from './FindBooks'
-export { default as RecommendBooks } from './RecommendBooks'
+export { default as FindBook } from './FindBooks'
+export { default as RecommendBook } from './RecommendBooks'
