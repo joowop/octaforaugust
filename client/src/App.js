@@ -12,9 +12,6 @@ function App(){
           <Navigation />
         </Router>
       </header>
-      <main className="h-auto">
-
-      </main>
         <footer>
           <Footer container />
       </footer>
