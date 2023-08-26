@@ -16,6 +16,9 @@ function Navigation(){
             <Navbar.Toggle/>
             <Navbar.Collapse>
                 <Dropdown inline label={<div>사서 이용자</div>}>
+                    <Navbar.Link href={ROUTE_PATH_LIST.LibrarianLiveOrganization.path}>
+                        장서 실시간 점검
+                    </Navbar.Link>
                     <Navbar.Link href={ROUTE_PATH_LIST.LibrarianCheckCollection.path}>
                         장서 점검
                     </Navbar.Link>

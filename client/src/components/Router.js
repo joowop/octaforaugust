@@ -8,6 +8,7 @@ function RouteList(){
         <Routes>
             <Route path={ROUTE_PATH_LIST.Main.path} element={ROUTE_PATH_LIST.Main.component}/>
             <Route path={ROUTE_PATH_LIST.LibrarianMain.path} element={ROUTE_PATH_LIST.LibrarianMain.element}>
+                <Route path={ROUTE_PATH_LIST.LibrarianLiveOrganization.path} element={ROUTE_PATH_LIST.LibrarianLiveOrganization.component}/>
                 <Route path={ROUTE_PATH_LIST.LibrarianCheckCollection.path} element={ROUTE_PATH_LIST.LibrarianCheckCollection.component}/>
                 <Route path={ROUTE_PATH_LIST.LibrarianOrganization.path} element={ROUTE_PATH_LIST.LibrarianOrganization.component}/>
 
