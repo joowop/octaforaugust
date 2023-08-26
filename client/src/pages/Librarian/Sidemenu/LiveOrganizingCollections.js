@@ -1,9 +1,11 @@
+/* eslint-disable no-undef */
 import React from 'react';
 
 function LiveOrganization() {
+
   return (
     <>
-   <video muted autoPlay src="videos/1.mp4">
+   <video muted autoPlay controls src='https://cdn.jsdelivr.net/gh/jeanDeluge/CDN/1.mp4'>
    </video>
    </>
   );
