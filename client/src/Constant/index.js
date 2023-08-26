@@ -1,0 +1,1 @@
+export {default as ROUTE_PATH_LIST} from './routers'

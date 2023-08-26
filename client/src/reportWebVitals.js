@@ -1,13 +1,14 @@
-const reportWebVitals = onPerfEntry => {
-  if (onPerfEntry && onPerfEntry instanceof Function) {
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS(onPerfEntry);
-      getFID(onPerfEntry);
-      getFCP(onPerfEntry);
-      getLCP(onPerfEntry);
-      getTTFB(onPerfEntry);
-    });
-  }
+// src/reportWebVitals.js
+import { getCLS, getFID, getLCP, getFCP, getTTFB } from 'web-vitals';
+
+const sendToAnalytics = () => {
+  // 여기에 성능 데이터를 분석하거나 보내는 로직을 추가할 수 있습니다.
 };
 
-export default reportWebVitals;
+getCLS(sendToAnalytics);
+getFID(sendToAnalytics);
+getLCP(sendToAnalytics);
+getFCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
+
+export default sendToAnalytics
