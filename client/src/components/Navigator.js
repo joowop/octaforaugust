@@ -2,7 +2,6 @@ import React from "react";
 import { Dropdown, Navbar } from 'flowbite-react';
 import {RouteList} from '../components'
 import {ROUTE_PATH_LIST} from "../Constant";
-import { Link } from "react-router-dom";
 
 
 function Navigation(){
@@ -17,7 +16,7 @@ function Navigation(){
             <Navbar.Toggle/>
             <Navbar.Collapse>
                 <Dropdown inline label={<div>사서 이용자</div>}>
-                    <Navbar.Link as={Link} href={ROUTE_PATH_LIST.LibrarianLiveOrganization.path}>
+                    <Navbar.Link href={ROUTE_PATH_LIST.LibrarianLiveOrganization.path}>
                         장서 실시간 점검
                     </Navbar.Link>
                     <Navbar.Link href={ROUTE_PATH_LIST.LibrarianCheckCollection.path}>
