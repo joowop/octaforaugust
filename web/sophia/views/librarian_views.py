@@ -50,5 +50,6 @@ def reversed():
 @bp.route('/wrong_placed_book', methods=['POST'])
 def wrong():
     with Libarian(request, "unsorted") as lib:
-        return send_from_directory('tmp/predicted',lib["unsorted_image"])
+        # return send_from_directory('tmp/predicted',lib["unsorted_image"])
+        return jsonify({"image":lib["unsorted_image"]})
     # {"u “unsorted_image” : <str: dir Image.jpg>}

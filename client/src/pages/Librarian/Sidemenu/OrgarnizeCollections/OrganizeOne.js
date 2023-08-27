@@ -8,7 +8,10 @@ function Organization() {
 
   const [ UploadedImage, setUploadedImage ] = useState(null)
   const [ currentBookShelfNumber, setCurrentBookShelfNumber] = useState(0)
-  const [ resultImage, setResultImage ] = useState([])
+  const [imageUrl, setImageUrl] = useState('');
+  const [uploading, setUploading] = useState(false);
+
+
   const handleImageChange = (event) => {
     setUploadedImage(event.target.files[0]);
   };
@@ -25,11 +28,16 @@ function Organization() {
     formData.append('bookshelf_number', currentBookShelfNumber);
 
     try {
-      const response = await axios.post('/librarian/wrong_placed_book', formData,{ headers: {
-        'Content-Type': 'multipart/form-data'
-      }})
+      setUploading(true);
+      await axios.post('/librarian/wrong_placed_book', formData
+      ).then(response => {
+        setImageUrl(response.data["image"]) 
+      })
+      .catch(error => {
+        console.error('Error downloading image:', error);
+        setUploading(false);
+      });
 
-      setResultImage.append(response.data)
 
     }catch(e){
       console.error("image upload error", e)
@@ -52,7 +60,8 @@ function Organization() {
         <div>
           <div>장서 탐색 결과</div>
           <div>
-            {resultImage}
+          {uploading && <p>Uploading...</p>}
+          {imageUrl && <img src={`http://127.0.0.1:5000/${imageUrl}`} alt="Downloaded" />}
           </div>
         </div>
     </>
