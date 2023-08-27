@@ -27,9 +27,9 @@ class ImagePredict:
         plots = result[0].plot()
 
         img = Image.fromarray(plots)
-        img_location ='./tmp/predicted/'
+        img_location ='static/results/'
         precise= 'predict_image_{}.jpg'.format(dt.datetime.now().strftime("%Y%m%d%H%M%S"))
-        img_location = "".join([img_location, precise])
+        img_location = os.path.join(img_location, precise)
         img.save(img_location, "JPEG")
         return img_location
 

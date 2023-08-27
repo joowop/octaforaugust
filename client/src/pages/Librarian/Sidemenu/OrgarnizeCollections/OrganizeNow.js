@@ -16,7 +16,7 @@ function Organization() {
     return () => {
       stopCamera();
     };
-  }, []);
+  });
 
   const sendData = async (event) => {
     event.preventDefault();
