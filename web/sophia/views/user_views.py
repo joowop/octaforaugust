@@ -13,8 +13,8 @@ def find_book():
     book = request.args.get('book')
     with SophiaForUser(request=request, option="find_book") as bookshelf:
         if bookshelf == -1:
-            return "해당 책이 존재하는 책장이 없습니다."
-        return send_from_directory('static/bookshelves', bookshelf["bookshelf"])
+            bookshelf["bookshelf"] = -1
+        return jsonify({"bookshelf": bookshelf["bookshelf"]})
 
 
 # 책 추천받기

@@ -44,7 +44,7 @@ class SophiaForUser:
         bookshelf_source = '{}.jpg'.format(bookshelf_number)
         if book_data.empty:
             self.result["bookshelf"] = -1
-        self.result["bookshelf"] = bookshelf_source
+        self.result["bookshelf"] = os.path.join('static/bookshelves', bookshelf_source)
         
     
     def recommend_book(self):
