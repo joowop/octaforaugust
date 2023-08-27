@@ -54,7 +54,7 @@ class Classify:
             cropped_image = original_image[y1:y2, x1:x2]
 
             # Save the cropped image
-            save_path = f'D:/octaforaugust/web/sophia/tmp/cropped_images/cropped_{i}.jpg'
+            save_path = f'./tmp/cropped_images/cropped_{i}.jpg'
             cv2.imwrite(save_path, cropped_image)
 
             print(f"Cropped image saved at: {save_path}")
@@ -180,12 +180,11 @@ class Classify:
 
         original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
         original_image = Image.fromarray(original_image)
-        original_image_path = 'D:/octaforaugust/web/sophia/tmp/predicted/'
+        original_image_path = 'static/assets/images/'
         precise = "classified_book_{}.jpg".format(dt.datetime.now().strftime(("%Y%m%d%H%M%S")))
-        original_image_path = "".join([original_image_path, precise])
-        original_image.save(original_image_path, "JPEG")
+        original_image.save(os.path.join(original_image_path, precise), "JPEG")
         # print(a)
         # print(b)
         # print(book_sorted_list)
 
-        return precise
+        return original_image_path + precise
