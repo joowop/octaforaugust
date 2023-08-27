@@ -22,4 +22,4 @@ def find_book():
 def recommend_book():
     with SophiaForUser(request=request, option="recommend") as recommend:
         print(recommend)
-        return render_template('/user/user_rec.html', book_list = recommend["booklist"])
+        return jsonify({"book_list": recommend["booklist"]})
