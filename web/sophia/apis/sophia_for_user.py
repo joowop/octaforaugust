@@ -15,9 +15,9 @@ class SophiaForUser:
     def __init__(self, request, option):
         self.booktext = request.args['book']
         self.option = option
-        self.folder_path = r"D:/octaforaugust/web/sophia/model/recommend"
+        self.folder_path = r"./model/recommend"
         self.result = {}
-        self.db_path = "D:/octaforaugust/web/sophia/model/recommend/gilbit_library_tmp_0820.csv"
+        self.db_path = "./model/recommend/gilbit_library_tmp_0820.csv"
         self.book_data = pd.read_csv(self.db_path, index_col=0)
     # def merge_json(self):
     #     merged_json = merge_json_files(self.folder_path)

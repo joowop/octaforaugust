@@ -6,9 +6,9 @@ import datetime as dt
 import os
 import pandas as pd
 
-modelpath = "D:/octaforaugust/web/sophia/model_ai/book_detection/book_detection.pt" ##model path
+modelpath = "./model_ai/book_detection/book_detection.pt" ##model path
 
-db_path = "D:/octaforaugust/web/sophia/model/recommend/gilbit_library_tmp_0820.csv"
+db_path = "./model/recommend/gilbit_library_tmp_0820.csv"
 
 class ImagePredict:
     def __init__(self, imagepath): ##모델 예측 사진 보여주는 함수
@@ -27,7 +27,7 @@ class ImagePredict:
         plots = result[0].plot()
 
         img = Image.fromarray(plots)
-        img_location ='D:/octaforaugust/web/sophia/tmp/predicted/'
+        img_location ='./tmp/predicted/'
         precise= 'predict_image_{}.jpg'.format(dt.datetime.now().strftime("%Y%m%d%H%M%S"))
         img_location = "".join([img_location, precise])
         img.save(img_location, "JPEG")
@@ -75,7 +75,7 @@ class ImagePredict:
                                   fontScale=1, color= (255,0,0))
 
         img = Image.fromarray(self.image)
-        img_location ='D:/octaforaugust/web/sophia/tmp/predicted/'
+        img_location ='./tmp/predicted/'
         precise= 'reversed_{}.jpg'.format(dt.datetime.now().strftime("%Y%m%d%H%M%S"))
         img_location = "".join([img_location, precise])
         img.save(img_location, "JPEG")

@@ -2,28 +2,31 @@ import os
 from ..utils.image_prediction.image_predict import ImagePredict
 from ..utils.classify.classify import Classify
 import datetime as dt
-received_file_dir = r"D:/octaforaugust/web/sophia/tmp/received"
+received_file_dir = r"./tmp/received"
 
 
 
 class Libarian:
     def __init__(self, request, option):
         self.option = option
-        self.image = request.files["image"]
-        self.bookshelf_number = request.form["bookshelf_number"]
-        self.image_location = self.get_received_image_path()
-        self.image_prediction = ImagePredict(self.image_location)
+        self.request = request
+        if option != "number":
+            self.image_location = self.get_received_image_path()
+            self.image_prediction = ImagePredict(self.image_location)
         self.classifier = Classify
         self.result = {}
         
     def get_received_image_path(self)->str:
-        
-        saved_location = "{}/received_file_{}.jpg".format(received_file_dir, dt.datetime.now().strftime("%Y%m%d%H%M%S"))
-        try:
+        if self.request.files:
+            self.image = self.request.files["image"]
+            saved_location = "{}/received_file_{}.jpg".format(received_file_dir, dt.datetime.now().strftime("%Y%m%d%H%M%S"))
             self.image.save(saved_location)
             return saved_location
-        except Exception as e:
-            return e
+        else:
+            image_path = self.request.form["bookshelf_number"]
+            original_image_path = 'static/bookshelves/'
+            saved_location = original_image_path + image_path
+            return saved_location
     
     def __exit__(self, exc_type, exc_value, traceback):
         pass
@@ -36,6 +39,8 @@ class Libarian:
             self.get_missing_book()
         elif self.option == "unsorted":
             self.get_wrong_placed_book()
+        elif self.option == "number":
+            self.get_bookshleves_numbers()
         return self.result
 
     def reversed_book_location(self) -> str:
@@ -59,3 +64,9 @@ class Libarian:
         classifier = self.classifier(self.image_location)
         result = classifier.get_unsorted_book()
         self.result["unsorted_image"] = result
+        
+    def get_bookshleves_numbers(self):
+        location= 'static/bookshelves'
+        bookself_images_folder = os.path.join('', location)
+        image_list = [ f for f in os.listdir(bookself_images_folder) if f.endswith(('jpg', 'jpeg'))]
+        self.result["bookshelve_list"] = image_list
