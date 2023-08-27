@@ -9,8 +9,8 @@ from collections import Counter
 import torch
 import datetime as dt
 
-model_path = "D:/octaforaugust/web/sophia/model_ai/book_detection/book_detection.pt"
-PATH = 'D:/octaforaugust/web/sophia/tmp/cropped_images/'
+model_path = "./model_ai/book_detection/book_detection.pt"
+PATH = './tmp/cropped_images/'
 img_paths = glob.glob(PATH+'*.jpg')
 img_paths.sort()
 
@@ -186,5 +186,4 @@ class Classify:
         # print(a)
         # print(b)
         # print(book_sorted_list)
-
         return original_image_path + precise

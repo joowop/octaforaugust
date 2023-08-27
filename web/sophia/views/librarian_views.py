@@ -53,3 +53,9 @@ def wrong():
         # return send_from_directory('tmp/predicted',lib["unsorted_image"])
         return jsonify({"image":lib["unsorted_image"]})
     # {"u “unsorted_image” : <str: dir Image.jpg>}
+    
+@bp.route('/bookshelve_numbers', methods=['GET'])
+def wrong_all():
+    with Libarian(request, "number") as lib:
+        print(lib["bookshelve_list"])
+        return lib["bookshelve_list"]
