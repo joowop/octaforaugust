@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, url_for, send_file, jsonify, send_from_directory
 from werkzeug.utils import redirect
 from ..apis.librarian import Libarian
+from ..model_ai.chatbot.chatbot import Chatbot
+from ..model_ai.chatbot.recommendation_chatbot import Recommend
 import io
 import base64
 from PIL import Image
@@ -9,6 +11,9 @@ from PIL import Image
 # from sophia.forms import
 
 bp = Blueprint('librarian', __name__, url_prefix='/librarian')
+
+qa_chat = Chatbot()
+recommend_chat = Recommend()
 
 # 분실 책 찾기
 @bp.route('/missing_book', methods=['POST'])
@@ -59,3 +64,14 @@ def wrong_all():
     with Libarian(request, "number") as lib:
         print(lib["bookshelve_list"])
         return lib["bookshelve_list"]
+    
+    
+@bp.route('/qa_chatbot', methods=['POST'])
+def qa_chatbot():
+    result = qa_chat.chatbot_text(text=request.args["question"])
+    return jsonify({"result": result})
+
+@bp.route('/recommend_chatbot', methods=['POST'])
+def recommend_chatbot():
+    result = recommend_chat.recommend_book(text=request.args["question"])
+    return jsonify({"result": result})

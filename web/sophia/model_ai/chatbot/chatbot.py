@@ -8,7 +8,7 @@ model = SentenceTransformer('sentence-transformers/xlm-r-100langs-bert-base-nli-
 df = pd.read_csv("D:/web/sophia/model/QA/question_answer_132.csv")
 df1 = pd.read_csv("D:/web/sophia/model/QA/question_concat.csv",header=None)
 
-class chatbot:
+class Chatbot:
 
     def chatbot_text(self,text):
         em_result = model.encode(text)
