@@ -15,7 +15,7 @@ bp = Blueprint('librarian', __name__, url_prefix='/librarian')
 def missing():
     with Libarian(request, "missing") as lib:
         if lib["missing_books"] == -1:
-            return "분실된 책이 없습니다."
+            lib["missing_books"] = "분실된 책이 없습니다."
     return lib
 ## 결과값
 #  self.result["bookshelf"]  입력한 사진값 추측결과_l
