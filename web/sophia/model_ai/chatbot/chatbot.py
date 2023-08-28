@@ -5,8 +5,8 @@ import random
 import numpy as np
 
 model = SentenceTransformer('sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
-df = pd.read_csv("D:/web/sophia/model/QA/question_answer_132.csv")
-df1 = pd.read_csv("D:/web/sophia/model/QA/question_concat.csv",header=None)
+df = pd.read_csv("./model/QA/question_answer_132.csv")
+df1 = pd.read_csv("./model/QA/question_concat.csv",header=None)
 
 class Chatbot:
 

@@ -6,8 +6,8 @@ import numpy as np
 
 
 model = SentenceTransformer('sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
-df = pd.read_csv("D:/web/sophia/model/recommend/recommend_final.csv") ##책 크롤링 내용
-df1 = pd.read_csv("D:/web/sophia/model/recommend/recommend_embedding.csv", header=None) ##책 크롤링 벡터화
+df = pd.read_csv("./model/recommend/recommend_final.csv") ##책 크롤링 내용
+df1 = pd.read_csv("./model/recommend/recommend_embedding.csv", header=None) ##책 크롤링 벡터화
 
 class Recommend:
 

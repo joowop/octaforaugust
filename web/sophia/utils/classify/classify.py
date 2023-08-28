@@ -9,8 +9,8 @@ import os
 import datetime as dt
 
 
-modelpath = 'd:/web/sophia/model_ai/book_detection/book_detection.pt'
-img_paths = 'd:/web/sophia/tmp/received/'
+modelpath = './model_ai/book_detection/book_detection.pt'
+img_paths = './tmp/received/'
 img_paths = glob(img_paths+'*.jpg')
 
 class Classify:
@@ -24,7 +24,7 @@ class Classify:
 
     def get_unsorted_book(self):
 
-        path = 'd:/web/sophia/tmp/cropped_images/{}/'.format(dt.datetime.now().strftime(("%Y%m%d%H%M%S")))
+        path = './tmp/cropped_images/{}/'.format(dt.datetime.now().strftime(("%Y%m%d%H%M%S")))
         os.makedirs(path, exist_ok=True)
 
         img = cv2.imread(self.imagepath)
