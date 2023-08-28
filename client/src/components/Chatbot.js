@@ -23,7 +23,7 @@ function Chatbot(props) {
   const first_infor = () =>{
     if(props.option == '/librarian/qa_chatbot'){
       setMessages([...messages, {text: "도서관에 대해 물어보실 것이 있나요?", isUser: false}])
-      setClasses('absolute -bottom-[42rem] right-4')
+      setClasses('absolute -bottom-[52rem] right-4')
     }else{
       setMessages([...messages, {text: "도서 추천을 받고 싶으시다면 키워드를 입력해주세요", isUser: false}])
     }
