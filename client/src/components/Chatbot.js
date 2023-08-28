@@ -4,11 +4,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, TextInput, Button } from 'flowbite-react';
+import { AiOutlineLoading } from 'react-icons/ai'
 function Chatbot(props) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [classes, setClasses] = useState('') 
-
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     scrollToBottom();
@@ -32,14 +33,17 @@ function Chatbot(props) {
   const sendMessage = async () => {
     if (input.trim() !== '') {
       try {
+        setUploading(true);
         const formData = new FormData
         formData.append("question", input)
         await axios.post(props.option, formData).then(response => {
           setMessages([...messages, {text: input, isUser: true}, {text: response.data["result"], isUser: false}]);
         });
         setInput('');
+        setUploading(false);
       } catch (error) {
         console.error('Error sending message:', error);
+        setUploading(false);
       }
     }
   };
@@ -69,7 +73,7 @@ function Chatbot(props) {
             onChange={e => setInput(e.target.value)}
           />
         
-          <Button onClick={sendMessage}>Send</Button>
+          <Button isProcessing={uploading} processingSpinner={<AiOutlineLoading className="h-6 w-6 animate-spin" />} onClick={sendMessage}>Send</Button>
           </div>
     </Card>
         
