@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useState } from 'react';
-import { Button } from 'flowbite-react';
+import { Button, Card } from 'flowbite-react';
 function LiveOrganization() {
 
 
@@ -14,13 +14,13 @@ function LiveOrganization() {
   return (
     <>
 
-    <div className='flex'>
-    <Button onClick={handelClick}>실시간 확인</Button>
-    </div>
-    <div className='container'>
-      {click && (<video muted controls src='https://cdn.jsdelivr.net/gh/jeanDeluge/CDN/1.mp4'>
-      </video>)}
-    </div>
+    <Card className='h-[600px]'>
+      <div className='container shadow-sm'>
+        {click && (<video className='h-[400px] justify-center' muted controls src='https://cdn.jsdelivr.net/gh/jeanDeluge/CDN/1.mp4'>
+        </video>)}
+      </div>
+      <Button onClick={handelClick}>실시간 확인</Button>
+    </Card>
    </>
   );
 }
