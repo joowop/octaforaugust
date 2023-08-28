@@ -15,17 +15,17 @@ function App(){
     <>
     <div className="max-w-auto">
       <header>
+      <div className="relative">
+              {click && <Chatbot option="/librarian/qa_chatbot"/>}
+              <Button className="fixed -bottom-0 -right-0 m-8" onClick={handleChatbotClick}> Q/A</Button>
+            </div>
         <Router>
           <Navigation />
         </Router>
       </header>
         <footer>
          
-          <div className="relative">
-            {click && <Chatbot option="/librarian/qa_chatbot"/>}
-            <Button className="fixed -bottom-0 -right-0" onClick={handleChatbotClick}> Q/A</Button>
-          </div>
-          <Footer />
+            <Footer />
       </footer>
     </div>
     </>
