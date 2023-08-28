@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button } from 'flowbite-react';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 function Organization() {
 
@@ -16,7 +18,7 @@ function Organization() {
     return () => {
       stopCamera();
     };
-  });
+  },[]);
 
   const sendData = async (event) => {
     event.preventDefault();
@@ -87,21 +89,24 @@ function Organization() {
 
   return (
     <div>
-      <h1>Camera App</h1>
+      <div className='flex'>
+        <Button onClick={takeSnapshot} className="m-2" >Take Photo</Button>
+        <Button onClick={stopCamera} className="m-2">Stop Camera</Button>
+      </div>
       <video ref={videoRef} autoPlay playsInline />
-      <button onClick={takeSnapshot}>Take Photo</button>
-      <button onClick={stopCamera}>Stop Camera</button>
       {photoData && (
         <div>
-          <h2>Snapshot</h2>
+          <h2>보낼 사진</h2>
           <img src={photoData} alt="Snapshot" />
         </div>
       )}
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      <button onClick={sendData}>sendData</button>
-      {uploading && <p>Uploading...</p>}
+      <Button isProcessing={uploading} processingSpinner={<AiOutlineLoading className="h-6 w-6 animate-spin" />} onClick={sendData} >sendData</Button>
+      <div>
+        <h2>결과</h2>
           {imageUrl && <img src={`http://127.0.0.1:5000/${imageUrl}`} alt="Downloaded" />}
+      </div>
     </div>
     
   );
