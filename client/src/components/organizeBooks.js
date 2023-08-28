@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Button } from 'flowbite-react';
+import { Button, Card } from 'flowbite-react';
 import { AiOutlineLoading } from 'react-icons/ai';
 
 import axios from 'axios';
@@ -35,12 +35,15 @@ function BookShelf(props){
         }
         return(
         <>
+        <Card className="max-w-sm">
+              <div className={`result-${props.number}`}>
+              {imageUrl && <img className="h-[300px] w-[300px]" src={`http://127.0.0.1:5000/${imageUrl}`} alt="Downloaded" />}
+              </div>
             <Button className={`bookshelf-${props.number}`} isProcessing={uploading} processingSpinner={<AiOutlineLoading className="h-6 w-6 animate-spin" />} onClick={() => sendBookShelveNumber(props.number)}>
                 {props.number} 책장 가져오기
             </Button>
-            <div className={`result-${props.number}`}>
-            {imageUrl && <img src={`http://127.0.0.1:5000/${imageUrl}`} alt="Downloaded" />}
-            </div>
+            
+        </Card>
         </>
         )
       
