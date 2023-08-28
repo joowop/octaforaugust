@@ -68,10 +68,11 @@ def wrong_all():
     
 @bp.route('/qa_chatbot', methods=['POST'])
 def qa_chatbot():
-    result = qa_chat.chatbot_text(text=request.args["question"])
+    result = qa_chat.chatbot_text(text=request.form["question"])
+    print(request.args)
     return jsonify({"result": result})
 
 @bp.route('/recommend_chatbot', methods=['POST'])
 def recommend_chatbot():
-    result = recommend_chat.recommend_book(text=request.args["question"])
+    result = recommend_chat.recommend_book(text=request.form["question"])
     return jsonify({"result": result})

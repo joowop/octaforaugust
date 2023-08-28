@@ -3,30 +3,41 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { Card, TextInput, Button } from 'flowbite-react';
 function Chatbot(props) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [classes, setClasses] = useState('') 
+
 
   useEffect(() => {
-    fetchMessages();
+    scrollToBottom();
+    first_infor()
   }, []);
 
-  const fetchMessages = async () => {
-    try {
-      const response = await axios.get(props.option); // Flask 서버 주소로 변경
-      setMessages(response.data);
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-    }
+  const scrollToBottom = () => {
+    const chatContainer = document.getElementById('chat-container');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
   };
+
+  const first_infor = () =>{
+    if(props.option == '/librarian/qa_chatbot'){
+      setMessages([...messages, {text: "도서관에 대해 물어보실 것이 있나요?", isUser: false}])
+      setClasses('absolute -bottom-[42rem] right-4')
+    }else{
+      setMessages([...messages, {text: "도서 추천을 받고 싶으시다면 키워드를 입력해주세요", isUser: false}])
+    }
+  }
 
   const sendMessage = async () => {
     if (input.trim() !== '') {
       try {
-        await axios.post('/send_message', { message: input }); // Flask 서버 주소로 변경
+        const formData = new FormData
+        formData.append("question", input)
+        await axios.post(props.option, formData).then(response => {
+          setMessages([...messages, {text: input, isUser: true}, {text: response.data["result"], isUser: false}]);
+        });
         setInput('');
-        fetchMessages();
       } catch (error) {
         console.error('Error sending message:', error);
       }
@@ -34,21 +45,36 @@ function Chatbot(props) {
   };
 
   return (
-    <div>
-      <div>
-        {messages.map((message, index) => (
-          <div key={index}>{message}</div>
-        ))}
+    <>
+      <div className={classes}>
+      <Card className="max-w-sm">
+        <div id="chat-container" className="overflow-auto max-h-96 ">
+        {messages.map((message, index) => {
+          if(message.isUser){
+            return <div key={index} className='bg-yellow-100 m-1 mb-3 rounded' >
+            {message.text} 
+          </div>   
+          }else{
+            return <div key={index} className='bg-blue-100 m-1 mb-3 rounded'>
+            {message.text}
+          </div>
+          }
+          
+          })}
+        </div>
+      <div className='flex'>
+        <TextInput
+            type="text"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+          />
+        
+          <Button onClick={sendMessage}>Send</Button>
+          </div>
+    </Card>
+        
       </div>
-      <div>
-        <input
-          type="text"
-          value={input}
-          onChange={e => setInput(e.target.value)}
-        />
-        <button onClick={sendMessage}>Send</button>
-      </div>
-    </div>
+    </>
   );
 }
 
