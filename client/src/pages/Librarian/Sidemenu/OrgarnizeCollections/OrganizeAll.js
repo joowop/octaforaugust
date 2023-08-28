@@ -36,15 +36,15 @@ function Organization() {
 
   return (
     <>
-
-        <Button onClick={handleGetAllShelves}>모든 책장 가져오기</Button>
-        
-        <div>
-            {buttonNames.map(el=>(
-                <div key={el} >
-                <BookShelf number={el} ></BookShelf>
-                </div>
-            ))}
+        <div className='flex'>
+            <div>
+                {buttonNames.map(el=>(
+                    <div key={el} >
+                    <BookShelf number={el} ></BookShelf>
+                    </div>
+                ))}
+            </div>
+            <Button className="flex-end" color="success" onClick={handleGetAllShelves}>모든 책장 가져오기</Button>
         </div>
     </>
   );
