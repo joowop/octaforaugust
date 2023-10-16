@@ -58,7 +58,7 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
 <br>
 2. 추천시스템 패스파인더 <br>
    (1) 교보문고 및 도서관 도서 데이터 Crawling <br>
-
+ <br>
 ### ✔️ 주요 기능
 
 3. AutoML <br>
@@ -88,9 +88,8 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
 
 ### ▪ 주요 라이브러리
-<img src="https://img.shields.io/badge/scikit learn-F7931E?style=for-the-badge&logo=scikit learn&logoColor=white"> <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
-<img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"> <img src="https://img.shields.io/badge/seaborn-99CC00?style=for-the-badge&logo=seaborn&logoColor=white"> <img src="https://img.shields.io/badge/matplotlib-0058CC?style=for-the-badge&logo=matplotlib&logoColor=white"> <img src="https://img.shields.io/badge/wordcloud-FF4F8B?style=for-the-badge&logo=wordcloud&logoColor=white">
-<img src="https://img.shields.io/badge/konlpy-FF0000?style=for-the-badge&logo=konlpy&logoColor=white"> <img src="https://img.shields.io/badge/collections-7FADF2?style=for-the-badge&logo=collections&logoColor=white">
+<img src="https://img.shields.io/badge/Yolov8-F7931E?style=for-the-badge&logo=Yolov8&logoColor=white"> <img src="https://img.shields.io/badge/Easy OCR-150458?style=for-the-badge&logo=Easy OCR&logoColor=white">
+<img src="https://img.shields.io/badge/Tensorflow-013243?style=for-the-badge&logo=Tensorflow&logoColor=white"> <img src="https://img.shields.io/badge/Flask-99CC00?style=for-the-badge&logo=Flask&logoColor=white"> <img src="https://img.shields.io/badge/Pytorch-0058CC?style=for-the-badge&logo=Pytorch&logoColor=white">
 
 ### ▪ 개발 툴
 <img src="https://img.shields.io/badge/VS code-2F80ED?style=for-the-badge&logo=VS code&logoColor=white"> <img src="https://img.shields.io/badge/Google Colab-F9AB00?style=for-the-badge&logo=Google Colab&logoColor=white">
