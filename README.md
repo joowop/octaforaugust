@@ -55,13 +55,14 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
 1. 장서 점검<br>
    (1) 직접 찍은 책장 사진 데이터<br>
    (2) 책(BOOK), 뒤집어진 책(BOOK_REVERSED), 책 라벨, (BOOK_LABEL), 뒤집어진 책 라벨, (BOOK_REVERSED_LABLE)<br>
-<br>
+   <br>
 2. 추천시스템 패스파인더 <br>
    (1) 교보문고 및 도서관 도서 데이터 Crawling <br>
- <br>
+   <br>
+
 ### ✔️ 주요 기능
 
-3. AutoML <br>
+4. AutoML <br>
 
    (1) 앞서 구현한 모델들의 MAE값을 줄이기 위해 Optuna, Auto Gluon, Pycaret 총 3가지의 AutoML을 사용<br>
    (2) Optuna : xgb의 경우 best Trial의 값이 5.885, lgbm의 경우 best trial의 값이 5.9726으로 기존의 MAE값 보다 더 나은 결과를 도출<br>
@@ -70,7 +71,7 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
        한 모델 :  5.9002, 기존의 MAE 값 보다 더 나은 결과 도출<br>
    (5) 결론적으로 AutoML을 사용한 결과 모든 프레임 워크들이 기존의 K-Fold된된 모델의 MAE값보다 확연히 낮아진것을 확인하였으며, 그 중에서도 Optuna를 통해 생성한              XGBoost 모델의 MAE값이 가장 좋게 나온 것을 확인<br>
 
-4. Auto ML 학습 결과 (MAE) <br>
+5. Auto ML 학습 결과 (MAE) <br>
    (1) Optuna (XGBoost) : 5.885<br>
    (2) Auto Gluon (L2) : 6.051919<br>
    (3) Pycaret (CatBoost, XGBoost Blend 모델) : 5.8961<br>
