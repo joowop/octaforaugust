@@ -62,20 +62,43 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
 
 ### ✔️ 주요 기능
 
-4. AutoML <br>
+1. 서비스 기능(장서 점검)
 
-   (1) 앞서 구현한 모델들의 MAE값을 줄이기 위해 Optuna, Auto Gluon, Pycaret 총 3가지의 AutoML을 사용<br>
-   (2) Optuna : xgb의 경우 best Trial의 값이 5.885, lgbm의 경우 best trial의 값이 5.9726으로 기존의 MAE값 보다 더 나은 결과를 도출<br>
-   (3) Auto Gluon :  L2 모델이 6.051919, xgb는 6.245744, lgbm은 6.165254로 기존의 MAE값 보다 더 나은 결과를 도출<br>
-   (4) Pycaret : Blending을 통해 여러 모델들을 혼합하여 새로운 모델 생성 -> MAE가 가장 낮게 나온 모델인 CatBoost, XGBoost 모델 Blending : 5.8961, 렌덤으로 Blending
-       한 모델 :  5.9002, 기존의 MAE 값 보다 더 나은 결과 도출<br>
-   (5) 결론적으로 AutoML을 사용한 결과 모든 프레임 워크들이 기존의 K-Fold된된 모델의 MAE값보다 확연히 낮아진것을 확인하였으며, 그 중에서도 Optuna를 통해 생성한              XGBoost 모델의 MAE값이 가장 좋게 나온 것을 확인<br>
+   (1) roboflow<br>
+       - 직접 찍은 책장 사진 데이터 라벨링<br>
+       - book, book_label, book_reversed, book_reversed_lable<br>
+         - 약 3000개의 데이터셋 확보<br>
+   <br>
+   (2) YOLOv8-s 모델<br>
+       - mAP50 : 0.987<br>
+       - 높은 정확도 도출 및 class별 객체 탐지가 우수<br>
+   <br>
+   (3) easy ocr<br>
+       - yolo를 통해 탐지된 책 라벨 Crop하여 저장<br>
+       - Crop된 라벨 이미지 ocr<br>
+   <br>
+   (3) 장서 점검 모델<br>
+       - ocr된 라벨을 통해 뒤집어진 도서, 순서가 바뀐 도서, 분실된 도서를 탐지 하고 사서에게 알려주는 알고리즘 구현<br>
+   <br>
+   
+2. 서비스 기능 (추천 시스템 패스파인더)
 
-5. Auto ML 학습 결과 (MAE) <br>
-   (1) Optuna (XGBoost) : 5.885<br>
-   (2) Auto Gluon (L2) : 6.051919<br>
-   (3) Pycaret (CatBoost, XGBoost Blend 모델) : 5.8961<br>
-   💡
+   (1) roboflow<br>
+       - 직접 찍은 책장 사진 데이터 라벨링<br>
+       - book, book_label, book_reversed, book_reversed_lable<br>
+         - 약 3000개의 데이터셋 확보<br>
+   <br>
+   (2) YOLOv8-s 모델<br>
+       - mAP50 : 0.987<br>
+       - 높은 정확도 도출 및 class별 객체 탐지가 우수<br>
+   <br>
+   (3) easy ocr<br>
+       - yolo를 통해 탐지된 책 라벨 Crop하여 저장<br>
+       - Crop된 라벨 이미지 ocr<br>
+   <br>
+   (3) 장서 점검 모델<br>
+       - ocr된 라벨을 통해 뒤집어진 도서, 순서가 바뀐 도서, 분실된 도서를 탐지 하고 사서에게 알려주는 알고리즘 구현<br>
+   <br>
 
 ### ✔️ 결과
 
