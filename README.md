@@ -79,6 +79,8 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
    (3) easy ocr<br>
        - yolo를 통해 탐지된 책 라벨 Crop하여 저장<br>
        - Crop된 라벨 이미지 ocr<br>
+       ![image](https://github.com/joowop/octaforaugust/assets/80230688/5a0af939-7914-46b9-bb8a-c7c4de87bb9d)<br>
+
    <br>
    (3) 장서 점검 모델<br>
        - ocr된 라벨을 통해 뒤집어진 도서, 순서가 바뀐 도서, 분실된 도서를 탐지 하고 사서에게 알려주는 알고리즘 구현<br>
@@ -93,13 +95,18 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
    (2) 유사도 기반 추천 시스템<br>
        - 트랜스포머를 이용하여 키워드 문장의 임베딩을 얻고, 입력값과 코사인유사도 값이 가장 높은 키워드를 얻어냄<br>
        - 해당 키워드와 짝이 되는 내용을 도출<br>
+       ![image](https://github.com/joowop/octaforaugust/assets/80230688/f6f09b51-e209-40b0-a0a8-704e4d7e9500)<br>
    <br>
-   (3) easy ocr<br>
-       - yolo를 통해 탐지된 책 라벨 Crop하여 저장<br>
-       - Crop된 라벨 이미지 ocr<br>
+3. 서비스 기능 (도서관 Q/A 챗)
+
+   (1) 데이터셋<br>
+       - 초창기 모델
+          - 데이터 수 : 대학도서관, 공공도서관 질의 응답 데이터 셋 약 4500 건<br>
    <br>
-   (3) 장서 점검 모델<br>
-       - ocr된 라벨을 통해 뒤집어진 도서, 순서가 바뀐 도서, 분실된 도서를 탐지 하고 사서에게 알려주는 알고리즘 구현<br>
+   (2) 유사도 기반 추천 시스템<br>
+       - 트랜스포머를 이용하여 키워드 문장의 임베딩을 얻고, 입력값과 코사인유사도 값이 가장 높은 키워드를 얻어냄<br>
+       - 해당 키워드와 짝이 되는 내용을 도출<br>
+       ![image](https://github.com/joowop/octaforaugust/assets/80230688/f6f09b51-e209-40b0-a0a8-704e4d7e9500)<br>
    <br>
 
 ### ✔️ 결과
