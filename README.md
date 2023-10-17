@@ -79,7 +79,7 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
    (3) easy ocr<br>
        - yolo를 통해 탐지된 책 라벨 Crop하여 저장<br>
        - Crop된 라벨 이미지 ocr<br>
-       ![image](https://github.com/joowop/octaforaugust/assets/80230688/4d567749-0488-4452-9e0b-6b556e793ace)<br>
+       ![스크린샷 2023-10-17 101115](https://github.com/joowop/octaforaugust/assets/80230688/601ef66b-4428-4f54-ab68-16ecf5323528)<br>
 
    <br>
    (3) 장서 점검 모델<br>
