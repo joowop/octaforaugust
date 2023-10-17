@@ -71,6 +71,9 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
    <br>
    (2) YOLOv8-s 모델<br>
        - mAP50 : 0.987<br>
+       ![results](https://github.com/joowop/octaforaugust/assets/80230688/85abebf4-ead8-4a3d-ba55-e6d2cdf9e0fe)<br>
+       ![image](https://github.com/joowop/octaforaugust/assets/80230688/5ae83b47-515c-405e-bd96-2874ae7e7381)<br>
+
        - 높은 정확도 도출 및 class별 객체 탐지가 우수<br>
    <br>
    (3) easy ocr<br>
@@ -83,14 +86,13 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
    
 2. 서비스 기능 (추천 시스템 패스파인더)
 
-   (1) roboflow<br>
-       - 직접 찍은 책장 사진 데이터 라벨링<br>
-       - book, book_label, book_reversed, book_reversed_lable<br>
-         - 약 3000개의 데이터셋 확보<br>
+   (1) 데이터셋<br>
+       - 데이터 수 : 교보문고 크롤링 데이터셋 약 10000건 (정치/사회,역사/문화,가정/육아,기술/공학, 종교, 요리 등)<br>
+       - 수집 내용 : 책 제목, 키워드, 저자, 출판사, 리뷰 수, 리뷰 내용<br>
    <br>
-   (2) YOLOv8-s 모델<br>
-       - mAP50 : 0.987<br>
-       - 높은 정확도 도출 및 class별 객체 탐지가 우수<br>
+   (2) 유사도 기반 추천 시스템<br>
+       - 트랜스포머를 이용하여 키워드 문장의 임베딩을 얻고, 입력값과 코사인유사도 값이 가장 높은 키워드를 얻어냄<br>
+       - 해당 키워드와 짝이 되는 내용을 도출<br>
    <br>
    (3) easy ocr<br>
        - yolo를 통해 탐지된 책 라벨 Crop하여 저장<br>
