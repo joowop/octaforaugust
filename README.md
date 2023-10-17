@@ -129,7 +129,15 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
 
 # 🛠 기술 스택
 
-@@ -130,33 +142,3 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
+### ▪ 언어
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+
+### ▪ 주요 라이브러리
+<img src="https://img.shields.io/badge/Yolov8-F7931E?style=for-the-badge&logo=Yolov8&logoColor=white"> <img src="https://img.shields.io/badge/Easy OCR-150458?style=for-the-badge&logo=Easy OCR&logoColor=white">
+<img src="https://img.shields.io/badge/Tensorflow-013243?style=for-the-badge&logo=Tensorflow&logoColor=white"> <img src="https://img.shields.io/badge/Flask-99CC00?style=for-the-badge&logo=Flask&logoColor=white"> <img src="https://img.shields.io/badge/Pytorch-0058CC?style=for-the-badge&logo=Pytorch&logoColor=white">
+
+### ▪ 개발 툴
+<img src="https://img.shields.io/badge/VS code-2F80ED?style=for-the-badge&logo=VS code&logoColor=white"> <img src="https://img.shields.io/badge/Google Colab-F9AB00?style=for-the-badge&logo=Google Colab&logoColor=white">
 
 ### ▪ 협업 툴
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white"> <img src="https://img.shields.io/badge/Google Slides-FFBB00?style=for-the-badge&logo=Google Slides&logoColor=white">
