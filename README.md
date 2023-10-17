@@ -100,13 +100,15 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
 3. 서비스 기능 (도서관 Q/A 챗)
 
    (1) 데이터셋<br>
-       - 초창기 모델
-          - 데이터 수 : 대학도서관, 공공도서관 질의 응답 데이터 셋 약 4500 건<br>
-   <br>
-   (2) 유사도 기반 추천 시스템<br>
-       - 트랜스포머를 이용하여 키워드 문장의 임베딩을 얻고, 입력값과 코사인유사도 값이 가장 높은 키워드를 얻어냄<br>
-       - 해당 키워드와 짝이 되는 내용을 도출<br>
-       ![image](https://github.com/joowop/octaforaugust/assets/80230688/f6f09b51-e209-40b0-a0a8-704e4d7e9500)<br>
+       1.1 초창기 모델<br>
+           - 데이터 수 : 대학도서관, 공공도서관 질의 응답 데이터 셋 약 4500 건<br>
+           - KoGPT-2 모델을 이용한 생성 모델에 전체 4500건 데이터 학습<br>
+           - + 정제된 데이터 셋 150건 학습<br>
+           ![image](https://github.com/joowop/octaforaugust/assets/80230688/3f585522-3dc5-466e-bb6d-81fb1bfd917c)<br>
+       <br>
+       1.2 개선 모델<br>
+           - 데이터 수 : 대학도서관, 공공도서관 자주 묻는 질문 데이터셋 약 150 건<br>
+           ![image](https://github.com/joowop/octaforaugust/assets/80230688/9b36a30c-ecd5-4fc6-9cca-7732f10949e8)<br>
    <br>
 
 ### ✔️ 결과
