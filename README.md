@@ -79,7 +79,7 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
    (3) easy ocr<br>
        - yolo를 통해 탐지된 책 라벨 Crop하여 저장<br>
        - Crop된 라벨 이미지 ocr<br>
-       ![image](https://github.com/joowop/octaforaugust/assets/80230688/5a0af939-7914-46b9-bb8a-c7c4de87bb9d)<br>
+       ![image](https://github.com/joowop/octaforaugust/assets/80230688/4d567749-0488-4452-9e0b-6b556e793ace)<br>
 
    <br>
    (3) 장서 점검 모델<br>
@@ -87,7 +87,6 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
    <br>
    
 2. 서비스 기능 (추천 시스템 패스파인더)
-
    (1) 데이터셋<br>
        - 데이터 수 : 교보문고 크롤링 데이터셋 약 10000건 (정치/사회,역사/문화,가정/육아,기술/공학, 종교, 요리 등)<br>
        - 수집 내용 : 책 제목, 키워드, 저자, 출판사, 리뷰 수, 리뷰 내용<br>
@@ -97,7 +96,7 @@ AI 사서는 YOLOv8를 활용하여 책과 책 라벨에 대한 객체를 탐지
        - 해당 키워드와 짝이 되는 내용을 도출<br>
        ![image](https://github.com/joowop/octaforaugust/assets/80230688/f6f09b51-e209-40b0-a0a8-704e4d7e9500)<br>
    <br>
-3. 서비스 기능 (도서관 Q/A 챗)
+4. 서비스 기능 (도서관 Q/A 챗)
 
    (1) 데이터셋<br>
        1.1 초창기 모델<br>
